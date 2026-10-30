@@ -84,6 +84,8 @@
   <h1>夜　行</h1>
   <p>Night Walk 2026</p>
 </header>
+
+<nav id="tabs" style="display:none"></nav>
 <main>
 <section class="stop" id="stop">
   <div class="stop-head">
@@ -121,5 +123,30 @@
 
 <footer>夜行 Night Walk 2026</footer>
 </main>
+<script>
+(function () {
+  var N = 1, SELF = "bq2juga9xp.html";
+  var L = {1: "1 呼召", 2: "2 火熱", 3: "3 失腳", 4: "4 回首"};
+  var K = "nightwalk2026", v = {};
+  try { v = JSON.parse(localStorage.getItem(K) || "{}") || {}; } catch (e) { v = {}; }
+  var PREV = {};
+  Object.keys(PREV).forEach(function (k) { if (!v[k]) v[k] = PREV[k]; });
+  v[N] = SELF;
+  try { localStorage.setItem(K, JSON.stringify(v)); } catch (e) {}
+  var keys = Object.keys(v).map(Number).filter(function (k) { return L[k]; }).sort();
+  var nav = document.getElementById("tabs");
+  if (!nav || keys.length < 2) return;
+  var html = "";
+  keys.forEach(function (k) {
+    if (k === N) {
+      html += '<a class="active" aria-current="page">' + L[k] + '</a>';
+    } else if (/^[a-z0-9]+\.html$/.test(v[k])) {
+      html += '<a href="' + v[k] + '">' + L[k] + '</a>';
+    }
+  });
+  nav.innerHTML = html;
+  nav.style.display = "";
+})();
+</script>
 </body>
 </html>
